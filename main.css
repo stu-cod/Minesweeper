@@ -1,0 +1,74 @@
+body {
+    font-family: fantasy;
+    background-color: rgba(0, 0, 0, 0.892);
+    text-align: center;
+}
+
+.game-title{
+    color: blueviolet;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    width: 200px;;
+    outline: 2px solid rgb(27, 1, 29);
+    background-color: rgb(40, 5, 56) 
+}
+
+.data{
+    background-color: rgba(106, 6, 199, 0.16);
+    padding-left: 2px;
+    padding-right: 2px;
+   margin: 10px;
+}
+
+.timer{
+    color: rgb(7, 255, 3)
+}
+
+.difficultys {
+    outline: 2px solid rgb(27, 1, 29);
+    background-color: rgb(20, 1, 29)
+}
+
+.difficulty{
+    background-color: rgb(20, 1, 29);
+    color: rgb(106, 6, 199);
+    font-size: 10px;
+}
+
+table {
+    border-spacing: 2px;
+    margin-top: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+
+ .board-game td {
+    outline: 2px solid rgb(27, 1, 29);
+    background-color: rgb(55, 3, 79);
+    width: 12px;
+    height: 12px; 
+    font-size: 9px;
+    color: rgb(7, 255, 3);
+    border: 1px solid rgb(7, 255, 3);
+    border-radius: 0.2%;
+} 
+
+.board-game .cover {
+    outline: 2px solid rgb(27, 1, 29);
+    background-color: rgb(67, 3, 96);
+    width: 10px;
+    height: 10px;
+    font-size: 7px;
+    border: 1px solid rgb(6, 0, 7);
+    border-radius: 0.2%;
+}
+
+.board-game .expload {
+    background-color: rgb(48, 5, 5);
+    font-size: 8px;
+}
+

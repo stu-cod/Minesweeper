@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body onkeyup="onKey(event)" onload="onInit()">
+    <h1 class='game-title'>field mine</h1>
+    <div class="container">
+        <div class="stats">
+            <span class="data timer">000</span>
+            <span class=" data smiley">😊</span>
+            <span class="data life">👼👼👼</span>
+        </div>
+        <div class="difficultys">
+            <button onclick="onDifficultyClicked(this)" class="difficulty Beginner">Beginner</button>
+            <button onclick="onDifficultyClicked(this)" class="difficulty Medium">Medium</button>
+            <button onclick="onDifficultyClicked(this)" class="difficulty Expert">Expert</button>
+        </div>
+        <table>
+            <tbody class="board-game">
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+    <script src="Minesweeper.js/main.js"></script>
+    <script src="Minesweeper.js/utils.js"></script>
+</body>
+
+</html>
