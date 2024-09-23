@@ -1,24 +1,26 @@
 'use strict'
+//second delivery - game basic functions and data update done (only timer left and game end modal)
+//TODO - for tomorrow # timer #modal, go over game functions again and look for mistakes
+
 
 var gBoard
 var gLevel = {
     size: 4,
     mines: 2,
 }
-var gGame = {
-    isOn: false,
-    shownCount: 0,
-    markedCount: 0,
-    secsPassed: 0
-}
+var gGame = {}
 
 const MINE = '💣'
 const MINEMARK = '#'
 const EMPTY = ''
 const MARK = '🚩'
+
 function onInit() {
+    setData()
+
     gGame = {
         isOn: false,
+        explodeCount: 0,
         shownCount: 0,
         markedCount: 0,
         secsPassed: 0
@@ -82,14 +84,15 @@ function setMinesNegsCount(board) {
 function onCellClicked(elCell, i, j) {
     const cell = gBoard[i][j]
 
-    if (!gGame.isOn) {
+    if (!gGame.isOn) { 
         createmines(i, j)
         setMinesNegsCount(gBoard)
     }
     gGame.isOn = true
-    if(cell.isMarked) return
+
+    if (cell.isMarked || cell.isShown) return
     //cell witout negs
-    if (cell.mineAroundCount === 0 && !cell.isMine) expandShown(board, elCell, i, j)
+    if (cell.mineAroundCount === 0 && !cell.isMine) expandShown(gBoard, elCell, i, j)
     //cell with negs
     else if (!cell.isMine) {
         //modal
@@ -97,44 +100,56 @@ function onCellClicked(elCell, i, j) {
         cell.isShown = true
         //dom
         elCell.classList.remove('cover')
+        renderCell(cell,elCell)
     }
     //mine cell
     else {
         //modal
-        if (!cell.isShown) gLevel.mines--
+        if (!cell.isShown) gGame.explodeCount++
         cell.isShown = true
         //dom
         elCell.innerText = MINE
-        elCell.classList.add('expload')
+        elCell.classList.add('explode')
+        updateData()
+
     }
-    hundleShowDom(elCell, i, j)
+
+
 }
 
+
 function onCellMarked(elCell, ev, i, j) {
-    if(!gGame.isOn) return
+    if (!gGame.isOn) return
     ev.preventDefault()
     const cell = gBoard[i][j]
 
-    if(!cell.isShown){
-    //modal
-    cell.isMarked = !cell.isMarked
-    //dom
-    elCell.innerText = cell.isMarked ?  MARK : EMPTY
+    if (!cell.isShown) {
+        //modal
+        cell.isMarked = !cell.isMarked
+        //dom
+        elCell.innerText = cell.isMarked ? MARK : EMPTY
     }
 }
 
 function checkGameOver() {
+    const nonMineCells = gLevel.size ** 2 - gLevel.mines
+    console.log('nonMineCells:', nonMineCells)
+    console.log('gGame.shownCount:', gGame.shownCount)
+    if (nonMineCells === gGame.shownCount) return true
 
+    return false
 }
 
 function expandShown(board, elCell, rowIdx, colIdx) {
-    const cell = gBoard[rowIdx][colIdx]
-    //modal
-    gGame.shownCount++
-    cell.isShown = true
-    //dom
-    elCell.classList.remove('cover')
 
+    const cell = board[rowIdx][colIdx]
+    if (!cell.isShown) {
+        //modal
+        gGame.shownCount++
+        cell.isShown = true
+        //dom
+        elCell.classList.remove('cover')
+    }
 
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
         if (i < 0 || i >= board.length) continue
@@ -144,16 +159,17 @@ function expandShown(board, elCell, rowIdx, colIdx) {
 
             var negCell = board[i][j]
 
-            if (!negCell.isShown && !negCell.isMarked) {
+            if (!negCell.isMarked && !negCell.isShown) {
                 //modal
                 negCell.isShown = true
                 gGame.shownCount++
                 //dom
                 var elNegCell = getElCell(i, j)
                 elNegCell.classList.remove('cover')
-                hundleShowDom(elNegCell, i, j)
+                renderCell(negCell,elNegCell)
                 if (negCell.mineAroundCount === 0) expandShown(gBoard, elNegCell, i, j)
             }
+
         }
     }
 }
@@ -167,7 +183,7 @@ function createmines(posI, posJ) {
         var currCell = gBoard[randomRowIdx][randomColIdx]
         if (randomRowIdx === posI && randomColIdx === posJ || currCell.isMine) continue
         //modal
-        currCell.isMine = true    
+        currCell.isMine = true
         minesCount++
     }
 
@@ -190,6 +206,3 @@ function onDifficultyClicked(elDifficulty) {
     onInit()
 
 }
-
-
-

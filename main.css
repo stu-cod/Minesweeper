@@ -4,26 +4,32 @@ body {
     text-align: center;
 }
 
-.game-title{
+.game-title {
+font-size: 100px;
     color: blueviolet;
 }
 
 .container {
     margin-right: auto;
     margin-left: auto;
-    width: 200px;;
+    width: 600px;
     outline: 2px solid rgb(27, 1, 29);
-    background-color: rgb(40, 5, 56) 
+    background-color: rgb(40, 5, 56)
 }
 
-.data{
+.data {
+    font-size: 40px;
     background-color: rgba(106, 6, 199, 0.16);
     padding-left: 2px;
     padding-right: 2px;
-   margin: 10px;
+    margin: 10px;
 }
 
-.timer{
+.life{
+    color: rgb(255, 255, 255);
+}
+
+.timer {
     color: rgb(7, 255, 3)
 }
 
@@ -32,10 +38,10 @@ body {
     background-color: rgb(20, 1, 29)
 }
 
-.difficulty{
+.difficulty {
     background-color: rgb(20, 1, 29);
     color: rgb(106, 6, 199);
-    font-size: 10px;
+    font-size: 30px;
 }
 
 table {
@@ -43,32 +49,31 @@ table {
     margin-top: 10px;
     margin-right: auto;
     margin-left: auto;
-    
+
 }
 
- .board-game td {
+.board-game td {
     outline: 2px solid rgb(27, 1, 29);
     background-color: rgb(55, 3, 79);
-    width: 12px;
-    height: 12px; 
-    font-size: 9px;
+    width: 36px;
+    height: 36px;
+    font-size: 27px;
     color: rgb(7, 255, 3);
     border: 1px solid rgb(7, 255, 3);
     border-radius: 0.2%;
-} 
+}
 
 .board-game .cover {
     outline: 2px solid rgb(27, 1, 29);
     background-color: rgb(67, 3, 96);
-    width: 10px;
-    height: 10px;
-    font-size: 7px;
+    width: 30px;
+    height: 30px;
+    font-size: 21px;
     border: 1px solid rgb(6, 0, 7);
     border-radius: 0.2%;
 }
 
-.board-game .expload {
+.board-game .explode {
     background-color: rgb(48, 5, 5);
-    font-size: 8px;
+    font-size: 24px;
 }
-

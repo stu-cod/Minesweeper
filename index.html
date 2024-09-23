@@ -9,12 +9,12 @@
 </head>
 
 <body onkeyup="onKey(event)" onload="onInit()">
-    <h1 class='game-title'>field mine</h1>
+    <h1 class='game-title'>💣Minesweeper💣</h1>
     <div class="container">
         <div class="stats">
             <span class="data timer">000</span>
-            <span class=" data smiley">😊</span>
-            <span class="data life">👼👼👼</span>
+            <span onclick="onInit()" class=" data smiley"></span>
+            <span class="data life"></span>
         </div>
         <div class="difficultys">
             <button onclick="onDifficultyClicked(this)" class="difficulty Beginner">Beginner</button>
@@ -32,6 +32,7 @@
 
     <script src="Minesweeper.js/main.js"></script>
     <script src="Minesweeper.js/utils.js"></script>
+    <script src="Minesweeper.js/data.js"></script>
 </body>
 
 </html>

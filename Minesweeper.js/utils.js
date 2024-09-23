@@ -28,12 +28,12 @@ function countMinesAroundCell(board, rowIdx, colIdx) {
     return minesCount
 }
 
-function hundleShowDom(elCell, i, j) {
-    const cell = gBoard[i][j]
+function renderCell(cell, elCell) {
+
     if(!cell.isShown) return
 
         if (!cell.isMine) {
             elCell.innerText = cell.mineAroundCount
-        if (cell.mineAroundCount === 0) elCell.innerText = EMPTY
+       if (cell.mineAroundCount === 0) elCell.innerText = EMPTY
     }
 }
