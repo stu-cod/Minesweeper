@@ -11,20 +11,27 @@
 <body onkeyup="onKey(event)" onload="onInit()">
     <h1 class='game-title'>💣Minesweeper💣</h1>
     <div class="container">
-        <div class="stats">
+        <div>
             <span class="data timer">000</span>
-            <span onclick="onInit()" class=" data smiley"></span>
+            <span class="data flag"></span>
+            <span onclick="onInit()" class="data smiley"></span>
             <span class="data life"></span>
         </div>
         <div class="difficultys">
-            <button onclick="onDifficultyClicked(this)" class="difficulty Beginner">Beginner</button>
-            <button onclick="onDifficultyClicked(this)" class="difficulty Medium">Medium</button>
-            <button onclick="onDifficultyClicked(this)" class="difficulty Expert">Expert</button>
+            <button onclick="onDifficultyClicked(this)" class="button Beginner">Beginner</button>
+            <button onclick="onDifficultyClicked(this)" class="button Medium">Medium</button>
+            <button onclick="onDifficultyClicked(this)" class="button Expert">Expert</button>
         </div>
+
         <table>
             <tbody class="board-game">
             </tbody>
         </table>
+
+        <div class="game-over-modal">
+            <h1 class="modal-msg"></h1>
+            <button class="button" onclick="onInit()">Play Again!</button>
+        </div>
     </div>
 
 
@@ -33,6 +40,7 @@
     <script src="Minesweeper.js/main.js"></script>
     <script src="Minesweeper.js/utils.js"></script>
     <script src="Minesweeper.js/data.js"></script>
+    <script src="Minesweeper.js/mines.js"></script>
 </body>
 
 </html>

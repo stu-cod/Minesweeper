@@ -11,29 +11,13 @@ function getElCell(i, j) {
     return elCell
 }
 
-function countMinesAroundCell(board, rowIdx, colIdx) {
-
-    var minesCount = 0
-    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i >= board.length) continue
-
-        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (j < 0 || j >= board[i].length) continue
-            if (i === rowIdx && j === colIdx) continue
-
-            if (board[i][j].isMine) minesCount++
-
-        }
-    }
-    return minesCount
-}
-
 function renderCell(cell, elCell) {
 
-    if(!cell.isShown) return
+    if (!cell.isShown) return
 
-        if (!cell.isMine) {
-            elCell.innerText = cell.mineAroundCount
-       if (cell.mineAroundCount === 0) elCell.innerText = EMPTY
+    if (!cell.isMine) {
+        elCell.innerText = cell.mineAroundCount
+        if (cell.mineAroundCount === 0) elCell.innerText = EMPTY
     }
 }
+

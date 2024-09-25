@@ -5,7 +5,7 @@ body {
 }
 
 .game-title {
-font-size: 100px;
+    font-size: 100px;
     color: blueviolet;
 }
 
@@ -18,14 +18,18 @@ font-size: 100px;
 }
 
 .data {
-    font-size: 40px;
+    font-size: 35px;
     background-color: rgba(106, 6, 199, 0.16);
     padding-left: 2px;
     padding-right: 2px;
     margin: 10px;
 }
 
-.life{
+.smiley {
+    cursor: pointer;
+}
+
+.life {
     color: rgb(255, 255, 255);
 }
 
@@ -38,10 +42,11 @@ font-size: 100px;
     background-color: rgb(20, 1, 29)
 }
 
-.difficulty {
+.button {
     background-color: rgb(20, 1, 29);
     color: rgb(106, 6, 199);
     font-size: 30px;
+    cursor: pointer;
 }
 
 table {
@@ -71,9 +76,27 @@ table {
     font-size: 21px;
     border: 1px solid rgb(6, 0, 7);
     border-radius: 0.2%;
+    cursor: pointer;
 }
 
 .board-game .explode {
     background-color: rgb(48, 5, 5);
     font-size: 24px;
+}
+
+.game-over-modal {
+    margin-top: 5px;
+    margin: auto;
+    background-color: rgb(67, 3, 96);
+    border: 1px solid rgb(53, 162, 6);
+    top: 200px;
+    left: 70%;
+    width: 30%;
+    height: 15%;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hide {
+    display: none;
 }
