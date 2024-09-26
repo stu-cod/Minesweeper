@@ -24,18 +24,11 @@ function createmines(posI, posJ) {
 }
 
 function countMinesAroundCell(board, rowIdx, colIdx) {
-
+    var negs = getNegsCells(board, rowIdx, colIdx)
     var minesCount = 0
-    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i >= board.length) continue
-
-        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (j < 0 || j >= board[i].length) continue
-            if (i === rowIdx && j === colIdx) continue
-
-            if (board[i][j].isMine) minesCount++
-
-        }
+    for (var i = 0; i < negs.length; i++) {
+        var currNeg = negs[i].cell
+        if (currNeg.isMine) minesCount++
     }
     return minesCount
 }
@@ -46,8 +39,7 @@ function showMineCell(cell, elCell) {
     gMineCells.explodeCount++
     cell.isShown = true
     //dom
-    elCell.innerText = MINE
-    elCell.classList.add('explode')
+    renderCell(cell, elCell)
 
 
 }
@@ -59,6 +51,7 @@ function setMinesNegsCount(board) {
         for (var j = 0; j < row.length; j++) {
             const cell = row[j]
             var currCellCount = countMinesAroundCell(board, i, j)
+
             //model
             cell.mineAroundCount = currCellCount
         }

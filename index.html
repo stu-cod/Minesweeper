@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="main.css">
 </head>
 
-<body onkeyup="onKey(event)" onload="onInit()">
+<body onload="onInit()">
     <h1 class='game-title'>💣Minesweeper💣</h1>
     <div class="container">
+        <div>
+            <span>Hints:</span>
+            <span onclick="onHintClick(this)" class="hint">💡</span>
+            <span onclick="onHintClick(this)" class="hint">💡</span>
+            <span onclick="onHintClick(this)" class="hint">💡</span>
+        </div>
         <div>
             <span class="data timer">000</span>
             <span class="data flag"></span>
@@ -27,9 +33,8 @@
             <tbody class="board-game">
             </tbody>
         </table>
-
         <div class="game-over-modal">
-            <h1 class="modal-msg"></h1>
+            <span class="modal-msg"></span>
             <button class="button" onclick="onInit()">Play Again!</button>
         </div>
     </div>
@@ -41,6 +46,7 @@
     <script src="Minesweeper.js/utils.js"></script>
     <script src="Minesweeper.js/data.js"></script>
     <script src="Minesweeper.js/mines.js"></script>
+    <script src="Minesweeper.js/bonus.js"></script>
 </body>
 
 </html>

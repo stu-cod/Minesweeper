@@ -9,20 +9,23 @@ const NORMALSMILEY = '😐'
 const SCAREDSMILEY = '😧'
 const EXPLAODESMILEY = '🤯'
 
+
 const elLife = document.querySelector('.life')
 const elSmiley = document.querySelector('.smiley')
 const elFlag = document.querySelector('.flag')
-
+const elTimer = document.querySelector('.timer')
 var gStartTime
 var gTimerIntrval
 
 //DATA
 function setData() {
+
     elLife.innerText = `LIVES: ${LIFE} ${LIFE} ${LIFE}`
     elSmiley.innerText = HAPPYSMILEY
     elFlag.innerText = FLAG + gLevel.mines
 }
 function updateData() {
+
     if (gMineCells.explodeCount === 1) {
         elLife.innerText = `LIVES: ${LIFE} ${LIFE} ${DEATH}`
         elSmiley.innerText = NORMALSMILEY
@@ -35,15 +38,15 @@ function updateData() {
         elLife.innerText = `LIVES: ${DEATH} ${DEATH} ${DEATH}`
         elSmiley.innerText = EXPLAODESMILEY
     }
-    if(isWin()) elSmiley.innerText = WINSMILLEY
+    if (isWin()) elSmiley.innerText = WINSMILLEY
     elFlag.innerText = FLAG + (gLevel.mines - gGame.markedCount)
-  
+
 }
 function markedCount(cell) {
-    if (cell.isMarked && !cell.isMine) gGame.markedCount++
-    else if (!cell.isMarked && !cell.isMine) gGame.markedCount--
-    else if (cell.isMarked && cell.isMine) gMineCells.markedCount++
-    else if (cell.isMarked && cell.isMine) gMineCells.markedCount++
+    if (cell.isMarked) gGame.markedCount++
+    if (!cell.isMarked) gGame.markedCount--
+    if (cell.isMarked && cell.isMine) gMineCells.markedCount++
+    if (!cell.isMarked && cell.isMine) gMineCells.markedCount++
 }
 
 
@@ -54,9 +57,8 @@ function startTimer() {
     gTimerIntrval = setInterval(() => {
         const start = Date.now() - gStartTime
         const formattedTime = formatTime(start)
-
-        const elTimer = document.querySelector('.timer')
         elTimer.innerText = formattedTime
+
 
     }, 1000)
 }

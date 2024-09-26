@@ -1,9 +1,9 @@
 'use strict'
-//second delivery - game basic functions and data update done (only timer left and game end modal)
-//TODO - for tomorrow # timer #modal, go over game functions again and look for mistakes
+
 
 
 var gBoard
+var firstClick
 var gGame = {}
 var gLevel = {
     size: 4,
@@ -16,8 +16,11 @@ const EMPTY = ''
 //////////////////////////////////////////////////////////////////
 
 function onInit() {
+
     clearInterval(gTimerIntrval)
-    clearInterval(gStartTime)
+    var elTimer = document.querySelector('.timer')
+    elTimer.innerText = '000'
+    firstClick = false
     gMineCells = {
         explodeCount: 0,
         markedCount: 0,
@@ -76,18 +79,24 @@ function renderBoard(board) {
 //////////////////////////////////////////////////////////////////
 
 function onCellClicked(elCell, i, j) {
-    
+
     const cell = gBoard[i][j]
 
-    if (!gGame.isOn) {
+
+    while (!firstClick) {
         createmines(i, j)
         setMinesNegsCount(gBoard)
         startTimer()
+        gGame.isOn = true
+        firstClick = true
     }
-    gGame.isOn = true
-    console.log('gMineCells:', gMineCells)
-    if (cell.isMarked || cell.isShown) return
 
+    if (!gGame.isOn || cell.isShown || cell.isMarked) return
+
+    if (hintMode) {
+        hint(gBoard, i, j, elCell)
+        return
+    }
     //cell witout negs
     expandShown(gBoard, elCell, i, j)
     //cell with negs
@@ -95,44 +104,13 @@ function onCellClicked(elCell, i, j) {
     //mine cell
     showMineCell(cell, elCell)
 
+
     updateData()
     gameOver()
+
 }
 
-function expandShown(board, elCell, rowIdx, colIdx) {
-    const cell = board[rowIdx][colIdx]
-    if (cell.mineAroundCount !== 0 || cell.isMine) return
 
-    if (!cell.isShown) {
-        //model
-        gGame.shownCount++
-        cell.isShown = true
-        //dom
-        elCell.classList.remove('cover')
-    }
-
-    for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
-        if (i < 0 || i >= board.length) continue
-        for (var j = colIdx - 1; j <= colIdx + 1; j++) {
-            if (j < 0 || j >= board[i].length) continue
-            if (i === rowIdx && j === colIdx) continue
-
-            var negCell = board[i][j]
-
-            if (!negCell.isMarked && !negCell.isShown) {
-                //model
-                negCell.isShown = true
-                gGame.shownCount++
-                //dom
-                var elNegCell = getElCell(i, j)
-                elNegCell.classList.remove('cover')
-                renderCell(negCell, elNegCell)
-                if (negCell.mineAroundCount === 0) expandShown(gBoard, elNegCell, i, j)
-            }
-
-        }
-    }
-}
 
 function showNumCell(cell, elCell) {
     if (cell.isMine || cell.mineAroundCount === 0) return
@@ -140,7 +118,7 @@ function showNumCell(cell, elCell) {
     gGame.shownCount++
     cell.isShown = true
     //dom
-    elCell.classList.remove('cover')
+
     renderCell(cell, elCell)
 }
 
@@ -172,7 +150,10 @@ function markCell(cell, elCell) {
 //////////////////////////////////////////////////////////////////
 
 function gameOver() {
+
     if (!isWin() && !isLose()) return
+
+    gGame.isOn = false
     var modalStr
     if (isLose()) {
         const mines = gMineCells.mines
@@ -187,22 +168,34 @@ function gameOver() {
 
         }
     }
-    if (isWin()) modalStr = '!!!!win!!!!!'
-    clearInterval(gTimerIntrval)
+    else if (isWin()) {
+
+        modalStr = '!!!!win!!!!!'
+
+        for (var i = 0; i < gBoard.length; i++) {
+            for (var j = 0; j < gBoard.length; j++) {
+                var currCell = gBoard[i][j]
+                var elCurrCell = getElCell(i, j);
+                renderCell(currCell, elCurrCell)
+            }
+
+        }
+    }
     showModal(modalStr)
-    gGame.isOn = false
+    clearInterval(gTimerIntrval)
+
 }
 
 function isWin() {
+
     const MineCellCount = gLevel.mines - gMineCells.explodeCount
-    const nonMineCellCount = gLevel.size ** 2 - gLevel.mines
-    
+
     if (gMineCells.markedCount === MineCellCount) return true
     return false
 }
 
 function isLose() {
-    if (gMineCells.explodeCount === 3) return true
+    if (gMineCells.explodeCount >= 3) return true
     return false
 }
 
@@ -214,6 +207,7 @@ function showModal(msg) {
 //////////////////////////////////////////////////////////////////
 
 function onDifficultyClicked(elDifficulty) {
+
     if (elDifficulty.classList.contains('Beginner')) {
         gLevel.size = 4
         gLevel.mines = 2
@@ -226,6 +220,6 @@ function onDifficultyClicked(elDifficulty) {
         gLevel.size = 12
         gLevel.mines = 32
     }
-    onInit()
 
+    onInit()
 }
