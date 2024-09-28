@@ -51,6 +51,14 @@ body {
     cursor: pointer;
 }
 
+.safe-button {
+    background-color: rgb(54, 15, 197);
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    cursor: pointer;
+}
+
 table {
     border-spacing: 2px;
     margin-top: 10px;
@@ -115,4 +123,27 @@ table {
 
 .use {
     background-color: rgb(209, 18, 18);
+}
+
+.best-score {
+    background-color: blueviolet;
+}
+
+.best-name {
+    color: rgb(22, 0, 185);
+}
+
+.best-time {
+    color: rgb(22, 0, 185);
+}
+
+.board-game .safe {
+    outline: 2px solid rgb(27, 1, 29);
+    background-color: rgb(14, 3, 96);
+    width: 30px;
+    height: 30px;
+    font-size: 21px;
+    border: 1px solid rgb(6, 0, 7);
+    border-radius: 0.2%;
+    cursor: pointer;
 }

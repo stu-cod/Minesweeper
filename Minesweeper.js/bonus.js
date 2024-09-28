@@ -79,6 +79,69 @@ function expose(board, i, j, elCell) {
     }
 }
 
+//best score 
+var player = {}
+
+
+function displayBestPlayer() {
+
+    const bestPlayerName = localStorage.getItem(`bestPlayerName${gLevel.difficulty}`)
+    const bestPlayerTime = localStorage.getItem(`bestPlayerTime${gLevel.difficulty}`)
+
+    const elBestName = document.querySelector('.best-name')
+    const elBestTime = document.querySelector('.best-time')
+    elBestName.innerText = bestPlayerName ? bestPlayerName : ''
+    elBestTime.innerText = bestPlayerTime ? bestPlayerTime + 'sec' : ''
+
+}
+
+function SetNewBest() {
+
+    player.time = +elTimer.innerText
+
+    if (!checkBestTime()) return
+    player.name = prompt('!!!you got the new best score!!! please type your name')
+    localStorage.setItem(`bestPlayerName${gLevel.difficulty}`, player.name)
+    localStorage.setItem(`bestPlayerTime${gLevel.difficulty}`, player.time)
+}
+
+function checkBestTime() {
+    const currBestTime = localStorage.getItem(`bestPlayerTime${gLevel.difficulty}`)
+    if (!currBestTime || player.time < currBestTime) return true
+    return false
+}
+
+//safe click 
+var safeClickCount
+const elSafeClick = document.querySelector('.safe-button')
+
+function safeClick() {
+    if (!gGame.isOn || safeClickCount === 0) return
+    safeClickCount--
+    var cellPos = getSafeCell()
+    var elCell = getElCell(cellPos.i, cellPos.j)
+
+    elCell.classList.add('safe')
+elSafeClick.innerText = `safe click ${safeClickCount}`
+
+}
+
+function getSafeCell() {
+    var isSafe = false
+    while (!isSafe) {
+        var randomRowIdx = getRandomInt(0, gLevel.size)
+        var randomColIdx = getRandomInt(0, gLevel.size)
+        var cell = gBoard[randomRowIdx][randomColIdx]
+        var cellPos = {
+            i: randomRowIdx,
+            j: randomColIdx
+        }
+        if ((!cell.isMine & !cell.isShown & !cell.isMarked)) {
+            isSafe = true
+            return cellPos
+        }
+    }
+}
 
 
 

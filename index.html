@@ -10,8 +10,14 @@
 
 <body onload="onInit()">
     <h1 class='game-title'>💣Minesweeper💣</h1>
+
     <div class="container">
+        <div class="best-score">
+            <span>the best player:<span> <span class="best-name"></span><br> 
+            <span>winning time:</span> <span class="best-time"></span>
+        </div>
         <div>
+            <button class="safe-button" onclick="safeClick()" ></button>
             <span>Hints:</span>
             <span onclick="onHintClick(this)" class="hint">💡</span>
             <span onclick="onHintClick(this)" class="hint">💡</span>
@@ -33,6 +39,7 @@
             <tbody class="board-game">
             </tbody>
         </table>
+
         <div class="game-over-modal">
             <span class="modal-msg"></span>
             <button class="button" onclick="onInit()">Play Again!</button>

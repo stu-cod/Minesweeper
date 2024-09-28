@@ -13,8 +13,9 @@ function getElCell(i, j) {
 
 function renderCell(cell, elCell) {
 
-    // if (!cell.isShown) return
+    
     elCell.classList.remove('cover')
+    elCell.classList.remove('safe')
 
     if (!cell.isMine) {
         elCell.innerText = cell.mineAroundCount

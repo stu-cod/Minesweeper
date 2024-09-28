@@ -6,9 +6,11 @@ var gBoard
 var firstClick
 var gGame = {}
 var gLevel = {
+    difficulty: 'Beginner',
     size: 4,
     mines: 2,
 }
+
 
 const elModal = document.querySelector('.game-over-modal')
 const EMPTY = ''
@@ -16,11 +18,20 @@ const EMPTY = ''
 //////////////////////////////////////////////////////////////////
 
 function onInit() {
-
     clearInterval(gTimerIntrval)
-    var elTimer = document.querySelector('.timer')
-    elTimer.innerText = '000'
+    displayBestPlayer()
+    
+    resetData()
+    setData()
+
+    gBoard = buildBoard()
+    renderBoard(gBoard)
+}
+
+function resetData(){
+    safeClickCount = 3
     firstClick = false
+    elTimer.innerText = '000'
     gMineCells = {
         explodeCount: 0,
         markedCount: 0,
@@ -32,10 +43,7 @@ function onInit() {
         markedCount: 0,
         secsPassed: 0
     }
-    gBoard = buildBoard()
-    setData()
     elModal.classList.add('hide')
-    renderBoard(gBoard)
 }
 
 function buildBoard() {
@@ -84,7 +92,7 @@ function onCellClicked(elCell, i, j) {
 
 
     while (!firstClick) {
-        createmines(i, j)
+        createmines(i,j)
         setMinesNegsCount(gBoard)
         startTimer()
         gGame.isOn = true
@@ -109,8 +117,6 @@ function onCellClicked(elCell, i, j) {
     gameOver()
 
 }
-
-
 
 function showNumCell(cell, elCell) {
     if (cell.isMine || cell.mineAroundCount === 0) return
@@ -169,7 +175,7 @@ function gameOver() {
         }
     }
     else if (isWin()) {
-
+       
         modalStr = '!!!!win!!!!!'
 
         for (var i = 0; i < gBoard.length; i++) {
@@ -180,7 +186,9 @@ function gameOver() {
             }
 
         }
+        SetNewBest() 
     }
+
     showModal(modalStr)
     clearInterval(gTimerIntrval)
 
@@ -209,14 +217,17 @@ function showModal(msg) {
 function onDifficultyClicked(elDifficulty) {
 
     if (elDifficulty.classList.contains('Beginner')) {
+        gLevel.difficulty = 'Beginner'
         gLevel.size = 4
         gLevel.mines = 2
     }
     if (elDifficulty.classList.contains('Medium')) {
+        gLevel.difficulty = 'Medium'
         gLevel.size = 8
         gLevel.mines = 14
     }
     if (elDifficulty.classList.contains('Expert')) {
+        gLevel.difficulty = 'Expert'
         gLevel.size = 12
         gLevel.mines = 32
     }

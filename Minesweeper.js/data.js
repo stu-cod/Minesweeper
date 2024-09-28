@@ -19,12 +19,13 @@ var gTimerIntrval
 
 //DATA
 function setData() {
-
+    elSafeClick.innerText = 'safe click 3'
     elLife.innerText = `LIVES: ${LIFE} ${LIFE} ${LIFE}`
     elSmiley.innerText = HAPPYSMILEY
     elFlag.innerText = FLAG + gLevel.mines
 }
 function updateData() {
+    
 
     if (gMineCells.explodeCount === 1) {
         elLife.innerText = `LIVES: ${LIFE} ${LIFE} ${DEATH}`
@@ -40,6 +41,8 @@ function updateData() {
     }
     if (isWin()) elSmiley.innerText = WINSMILLEY
     elFlag.innerText = FLAG + (gLevel.mines - gGame.markedCount)
+
+   
 
 }
 function markedCount(cell) {
